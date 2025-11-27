@@ -35,7 +35,7 @@ super + v
 	~/.config/i3/scripts/scratchpad pulsemixer pulsemixer
 
 # Show Keybinding Help Script
-super + h
+super + \
 	~/.config/i3/scripts/help
     
 # Paste to note (bashrc note)   
