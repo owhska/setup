@@ -410,10 +410,6 @@ if [ "$ONLY_CONFIG" = false ]; then
             git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM}/plugins/zsh-completions 2>/dev/null || true
             git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM}/plugins/k 2>/dev/null || true
             git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM}/plugins/zsh-z 2>/dev/null || true
-
-            # Tema Powerlevel10k
-            msg "Instalando Powerlevel10k..."
-            git clone --depth=1 https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM}/themes/powerlevel10k 2>/dev/null || true
         else
             msg "Aviso: Diretório do Oh My Zsh não encontrado, pulando plugins..."
         fi
@@ -424,7 +420,7 @@ if [ "$ONLY_CONFIG" = false ]; then
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 plugins=(
     git
@@ -441,9 +437,6 @@ source $ZSH/oh-my-zsh.sh
 # Aliases úteis
 alias ls='eza --icons --group-directories-first'
 alias ll='eza -la --icons --group-directories-first'
-alias cat='bat'
-alias find='fd'
-alias grep='rg'
 alias cls='clear'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
