@@ -1,0 +1,129 @@
+# 🪟 i3-setup
+
+--
+
+## 🚀 Installation
+
+### Quick Install
+```bash
+git clone https://https://github.com/owhska/i3-setup.git
+cd i3-setup
+chmod +x install.sh
+./install.sh
+
+```
+## 📦 What It Installs
+
+| Component             | Purpose                          |
+|------------------------|----------------------------------|
+| `i3`                  | Tiling window manager            |
+| `sxhkd`               | Hotkey daemon                    |
+| `picom` `(FT-Labs)`   | Compositor for transparency      |
+| `polybar`             | Status bar                       |
+| `rofi`                | Application launcher             |
+| `dunst`               | Notifications                    |
+| `wezterm`             | Terminal emulator (main)         |
+| `st`                  | Simple terminal (scratchpad)     |
+| `firefox-esr`         | Default web browser              |
+| `thunar` + plugins    | File manager                     |
+| `nala`                | Better apt frontend              |
+| `pipewire`            | Audio handling                   |
+| `flameshot`,          | Screenshot tools                 |
+| `micro`               | Terminal text editor             |
+| `redshift`            | Night light                      |
+| `qimgv`               | Lightweight image viewer         |
+| `fzf`, etc.           | Utilities & enhancements         |
+
+---
+
+## 🎨 Appearance & Theming
+
+- Minimal theme with custom wallpapers
+- Polybar with optimized layout: system info (left), workspaces (center), controls (right)
+- Enhanced polybar with multiple font support (Roboto Mono, FontAwesome, Hack Nerd Font)
+- Dunst, rofi, and GTK themes preconfigured
+- Wallpapers stored in `~/.config/i3/wallpaper`
+- GTK Theme: [Orchis](https://github.com/vinceliuice/Orchis-theme)
+- Icon Theme: [Colloid](https://github.com/vinceliuice/Colloid-icon-theme)
+
+> 💡 _Special thanks to [vinceliuice](https://github.com/vinceliuice) for the excellent GTK and icon themes._
+
+---
+
+## 🔑 Keybindings Overview
+
+| Key Combo              | Action                                |
+|------------------------|----------------------------------------|
+| `Super + Enter`        | Launch terminal                        |
+| `Super + Shift + Enter`| Toggle scratchpad terminal             |
+| `Super + d`            | Launch rofi                            |
+| `Super + Shift + q`    | Close focused window                   |
+| `Super + H`            | Help via keybind viewer                |
+| `Super + V`            | Audio mixer (pulsemixer) in scratchpad |
+| `Super + Shift + R`    | Restart i3                             |
+| `Super + 1-9,0`        | Switch to workspace 1-10               |
+| `Super + Shift + 1-9,0`| Move window to workspace 1-10          |
+| `Super + Minus`        | Move window to scratchpad              |
+| `Super + Equal`        | Show/hide scratchpad                   |
+
+Keybindings are configured via:
+
+- `~/.config/i3/sxhkd/sxhkdrc`
+- `~/.config/i3/scripts/help` (run manually or with `Super + H`)
+
+---
+
+## 📂 Configuration Files
+
+```
+~/.config/i3/
+├── config                 # Main i3 config
+├── workspaces.conf        # Workspace definitions
+├── rules.conf             # Window rules and appearance
+├── sxhkd/
+│   └── sxhkdrc            # Keybinding configuration
+├── polybar/
+│   ├── config.ini
+│   └── polybar-i3
+├── dunst/
+│   └── dunstrc
+├── rofi/
+│   ├── config.rasi
+│   ├── keybinds.rasi
+│   └── power.rasi
+├── picom/
+│   └── picom.conf
+├── scripts/
+│   ├── autostart.sh
+│   ├── changevolume
+│   ├── power
+│   ├── scratchpad
+│   └── help
+├── wallpaper/
+│   └── (wallpaper images)
+```
+
+**Advanced scratchpad usage:**
+```bash
+# Launch custom applications in scratchpad mode
+Super + Shift + Enter    # Default terminal scratchpad
+Super + V                # Pulsemixer scratchpad
+# Or via script: scratchpad app_name app_command
+```
+
+---
+
+## 🎨 Modular Configuration
+
+This i3 setup uses a modular configuration approach for better organization:
+- **config**: Main i3 configuration with includes
+- **workspaces.conf**: Workspace definitions (1-10)
+- **rules.conf**: Window rules, borders, gaps, and scratchpad settings
+- **sxhkd/sxhkdrc**: All keybindings managed by sxhkd for consistency
+
+This modular approach makes it easy to:
+- Understand and modify specific aspects of the configuration
+- Share configurations between different window managers
+- Keep the main config file clean and focused
+
+---
