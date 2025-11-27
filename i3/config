@@ -7,6 +7,7 @@ set $mod Mod4
 font pango:monospace 8
 
 exec_always --no-startup-id ~/.config/i3/scripts/autostart.sh
+exec_always --no-startup-id picom -b
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
