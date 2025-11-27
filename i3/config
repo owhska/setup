@@ -12,7 +12,7 @@ exec_always --no-startup-id ~/.config/i3/scripts/autostart.sh
 floating_modifier $mod
 
 bar {
-    status_command i3status
+    status_command i3status -c ~/.config/i3/i3status.conf
     position top
     tray_output primary
     separator_symbol "."
