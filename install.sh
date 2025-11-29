@@ -430,7 +430,6 @@ plugins=(
     git
     docker
     zsh-autosuggestions
-    zsh-syntax-highlighting
     zsh-completions
     k
     zsh-z
