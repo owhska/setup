@@ -63,7 +63,11 @@ progress_install() {
 
     echo -e "${GREEN}✔ Concluído: $description${NC}\n"
 }
-
+export_packages() {
+    echo "Exporting installed packages for Debian/Ubuntu..."
+    dpkg --get-selections > "$HOME/package_list_debian.txt"
+    echo "Packages exported to ~/package_list_debian.txt"
+}
 
 # Check if we should export packages and exit
 if [ "$EXPORT_PACKAGES" = true ]; then
@@ -159,7 +163,7 @@ if [ "$ONLY_CONFIG" = false ]; then
     progress_install "Installing terminal packages" "${PACKAGES_TERMINAL[@]}" || die "Failed to install terminal tools"
     
     # Try exa first (Debian 12), then eza (newer Ubuntu)
-    progress_install exa 2>/dev/null || progress_install eza 2>/dev/null || msg "Note: exa/eza not available, skipping..."
+    sudo apt-get install exa 2>/dev/null || sudo apt-get install eza 2>/dev/null || msg "Note: exa/eza not available, skipping..."
 
     msg "Installing fonts..."
     progress_install "Installing fonts packages" "${PACKAGES_FONTS[@]}" || die "Failed to install fonts"
@@ -495,4 +499,4 @@ fi
 # Done
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo "1. Log out and select 'i3' from your display manager"
-echo "2. Press Super+H for keybindings"
+echo "2. Press Super+Z for keybindings"
