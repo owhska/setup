@@ -278,9 +278,9 @@ EOF
     fi
     
     
-        msg "Installing lightdm..."
-        sudo apt install -y lightdm lightdm-gtk-greeter
-        sudo systemctl enable lightdm
+        msg "Installing sddm..."
+        sudo apt install -y sddm
+        sudo systemctl enable sddm
 
     # Configuração do i3status
     msg "Setting up i3status configuration..."
