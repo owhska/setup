@@ -680,7 +680,7 @@ echo -e "${DIM}─────────────────────�
 echo -e "${BOLD}🚀 PRÓXIMOS PASSOS:${NC}"
 echo "  1. Faça logout do sistema"
 echo "  2. Selecione 'i3' no gerenciador de login"
-echo "  3. Pressione ${BOLD}Super+H${NC} para ver os atalhos de teclado"
+echo "  3. Pressione ${BOLD}Super+z${NC} para ver os atalhos de teclado"
 echo "  4. Configure seu wallpaper em ${DIM}~/.config/i3/wallpapers/${NC}"
 echo "  5. Personalize as configurações em ${DIM}~/.config/i3/${NC}"
 
