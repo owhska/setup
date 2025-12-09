@@ -216,7 +216,7 @@ PACKAGES_BUILD=(
 )
 
 PACKAGES_OPTIONAL=(
-    firefox vim btop fastfetch python3 nodejs npm
+    vim btop fastfetch python3 nodejs
 )
 
 # Calcula total de pacotes
