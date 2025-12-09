@@ -138,34 +138,34 @@ PACKAGES_BUILD=(
 # Install packages by group
 if [ "$ONLY_CONFIG" = false ]; then
     msg "Installing core packages..."
-    progress_install "${PACKAGES_CORE[@]}" || die "Failed to install core packages"
+    progress_install "Installing core packages" "${PACKAGES_CORE[@]}" || die "Failed to install core packages"
 
     msg "Installing UI components..."
-    progress_install "${PACKAGES_UI[@]}" || die "Failed to install UI packages"
+    progress_install "Installing UI packages" "${PACKAGES_UI[@]}" || die "Failed to install UI packages"
 
     msg "Installing file manager..."
-    progress_install "${PACKAGES_FILE_MANAGER[@]}" || die "Failed to install file manager"
+    progress_install "Installing file manager packages" "${PACKAGES_FILE_MANAGER[@]}" || die "Failed to install file manager"
 
     msg "Installing audio support..."
-    progress_install "${PACKAGES_AUDIO[@]}" || die "Failed to install audio packages"
+    progress_install "Installing audio packages" "${PACKAGES_AUDIO[@]}" || die "Failed to install audio packages"
 
     msg "Installing system utilities..."
-    progress_install "${PACKAGES_UTILITIES[@]}" || die "Failed to install utilities"
+    progress_install "Installing system packages" "${PACKAGES_UTILITIES[@]}" || die "Failed to install utilities"
     
     # Try firefox-esr first (Debian), then firefox (Ubuntu)
-    progress_install firefox-esr 2>/dev/null || sudo apt-get install -y firefox 2>/dev/null || msg "Note: firefox not available, skipping..."
+    sudo apt-get install firefox-esr 2>/dev/null || sudo apt-get install -y firefox 2>/dev/null || msg "Note: firefox not available, skipping..."
 
     msg "Installing terminal tools..."
-    progress_install "${PACKAGES_TERMINAL[@]}" || die "Failed to install terminal tools"
+    progress_install "Installing terminal packages" "${PACKAGES_TERMINAL[@]}" || die "Failed to install terminal tools"
     
     # Try exa first (Debian 12), then eza (newer Ubuntu)
     progress_install exa 2>/dev/null || progress_install eza 2>/dev/null || msg "Note: exa/eza not available, skipping..."
 
     msg "Installing fonts..."
-    progress_install "${PACKAGES_FONTS[@]}" || die "Failed to install fonts"
+    progress_install "Installing fonts packages" "${PACKAGES_FONTS[@]}" || die "Failed to install fonts"
 
     msg "Installing build dependencies..."
-    progress_install "${PACKAGES_BUILD[@]}" || die "Failed to install build tools"
+    progress_install "Installing build packages" "${PACKAGES_BUILD[@]}" || die "Failed to install build tools"
 
     # Enable services
     sudo systemctl enable avahi-daemon acpid
@@ -211,12 +211,12 @@ if [ "$ONLY_CONFIG" = false ]; then
     mkdir -p "$TEMP_DIR" && cd "$TEMP_DIR"
 
     msg "Installing picom..."
-    progress_install picom|| die "Failed to install picom"
+    progress_install "Installing picom" picom|| die "Failed to install picom"
     
     msg "Installing kitty..."
     if ! command -v kitty &> /dev/null; then
       sudo apt update
-      progress_install
+      progress_install "Installing kitty" kitty
     else
       msg "Kitty already installed"
     fi
