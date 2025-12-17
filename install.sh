@@ -128,6 +128,7 @@ PACKAGES_TERMINAL=(
     neovim
     emacs-gtk
     ripgrep
+    fzf
 )
 
 PACKAGES_FONTS=(
