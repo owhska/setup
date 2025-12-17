@@ -464,6 +464,17 @@ alias ...='cd ../..'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+gpush() {
+
+
+  git add .
+
+  git commit -m "$*"
+
+  git push
+
+}
 EOF
 
         # Configuração básica do Powerlevel10k
