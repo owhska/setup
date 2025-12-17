@@ -284,7 +284,7 @@ EOF
 
     # Copia wallpapers do diretório do script
     if [ -d "$SCRIPT_DIR/wallpaper" ]; then
-        cp -r "$SCRIPT_DIR/wallpaper"/* "$CONFIG_DIR/i3/wallpapers/" 2>/dev/null || true
+        cp -r "$SCRIPT_DIR/wallpaper"/* "$CONFIG_DIR/i3/wallpaper/" 2>/dev/null || true
         msg "Wallpapers copied from script directory"
         
         # Verifica se o wall.jpg existe e configura como padrão

@@ -261,15 +261,15 @@ EOF
     sudo apt install -y arc-theme papirus-icon-theme
         
     msg "Setting up wallpapers..."
-    mkdir -p "$CONFIG_DIR/wallpapers"
+    mkdir -p "$CONFIG_DIR/i3/wallpaper"
 
     # Copia wallpapers do diretório do script
-    if [ -d "$SCRIPT_DIR/wallpapers" ]; then
-        cp -r "$SCRIPT_DIR/wallpapers"/* "$CONFIG_DIR/wallpapers/" 2>/dev/null || true
+    if [ -d "$SCRIPT_DIR/wallpaper" ]; then
+        cp -r "$SCRIPT_DIR/wallpaper"/* "$CONFIG_DIR/i3/wallpaper/" 2>/dev/null || true
         msg "Wallpapers copied from script directory"
         
         # Verifica se o wall.jpg existe e configura como padrão
-        if [ -f "$CONFIG_DIR/wallpapers/wall.jpg" ]; then
+        if [ -f "$CONFIG_DIR/i3/wallpaper/wall.jpg" ]; then
             msg "Your wallpaper 'wall.jpg' found and set as default"
         else
             msg "Note: wall.jpg not found in wallpapers directory"
