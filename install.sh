@@ -297,9 +297,9 @@ EOF
     fi
     
     
-        msg "Installing lightdm..."
-        sudo apt install -y lightdm
-        sudo systemctl enable lightdm
+    msg "Installing lightdm..."
+    sudo apt install -y lightdm
+    sudo systemctl enable lightdm
 
     # Configuração do i3status
     msg "Setting up i3status configuration..."
