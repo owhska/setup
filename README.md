@@ -2,8 +2,8 @@
 
 ### Quick Install
 ```bash
-git clone https://https://github.com/owhska/setup.git
-cd setup
+git clone https://https://github.com/owhska/dotfiles.git
+cd dotfiles
 chmod +x install.sh
 ./install.sh
 
