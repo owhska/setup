@@ -45,24 +45,112 @@ trap "rm -rf $TEMP_DIR" EXIT
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 CYAN='\033[0;36m'
+GRAY='\033[0;90m'
 NC='\033[0m'
 
 die() { echo -e "${RED}ERROR: $*${NC}" >&2; exit 1; }
 msg() { echo -e "${CYAN}$*${NC}"; }
+#progress_install() {
+#    local description="$1"
+#    shift
+#    echo -e "${CYAN}⬇️  $description...${NC}"
+#
+#    if command -v pv &> /dev/null; then
+#        sudo apt-get install -y "$@" 2>&1 | pv -ptebar >/dev/null
+#    else
+#        sudo apt-get install -y "$@"
+#    fi
+#
+#    echo -e "${GREEN}✔ Concluído: $description${NC}\n"
+#}
+
 progress_install() {
     local description="$1"
     shift
-    echo -e "${CYAN}⬇️  $description...${NC}"
-
-    if command -v pv &> /dev/null; then
-        sudo apt-get install -y "$@" 2>&1 | pv -ptebar >/dev/null
-    else
-        sudo apt-get install -y "$@"
+    local packages=("$@")
+    local total_packages=${#packages[@]}
+    local installed_count=0
+    
+    # Cabeçalho com emoji e descrição
+    echo -e "\n${CYAN}📦 $description${NC}"
+    echo -e "${GRAY}═${NC}"$(printf '%.0s═' $(seq 1 $((${#description} + 2))))
+    
+    # Verificar se há pacotes para instalar
+    if [ $total_packages -eq 0 ]; then
+        echo -e "${YELLOW}⚠️  Nenhum pacote especificado${NC}\n"
+        return 1
     fi
-
-    echo -e "${GREEN}✔ Concluído: $description${NC}\n"
+    
+    echo -e "${BLUE}📊 Total de pacotes: $total_packages${NC}"
+    
+    # Verificar pacotes já instalados
+    local to_install=()
+    for pkg in "${packages[@]}"; do
+        if dpkg -l "$pkg" 2>/dev/null | grep -q "^ii"; then
+            echo -e "  ${GREEN}✓${NC} $pkg ${GRAY}(já instalado)${NC}"
+            ((installed_count++))
+        else
+            to_install+=("$pkg")
+        fi
+    done
+    
+    # Se todos já estiverem instalados
+    if [ $installed_count -eq $total_packages ]; then
+        echo -e "${GREEN}✅ Todos os pacotes já estão instalados${NC}\n"
+        return 0
+    fi
+    
+    # Mostrar o que será instalado
+    if [ ${#to_install[@]} -gt 0 ]; then
+        echo -e "${YELLOW}⬇️  Pacotes para instalar: ${#to_install[@]}${NC}"
+        printf "  • %s\n" "${to_install[@]}"
+    fi
+    
+    echo -e "${BLUE}⏳ Iniciando instalação...${NC}"
+    
+    # Instalação com progresso
+    local start_time=$(date +%s)
+    
+    if command -v pv &> /dev/null && [ -t 1 ]; then
+        # Com PV (barra de progresso)
+        sudo apt-get update 2>/dev/null
+        sudo apt-get install -y "${to_install[@]}" 2>&1 | \
+            pv -ptebar -s $(( ${#to_install[@]} * 50 )) -N "$description" >/dev/null
+    else
+        # Sem PV (modo normal)
+        sudo apt-get update
+        sudo apt-get install -y "${to_install[@]}"
+    fi
+    
+    local exit_code=${PIPESTATUS[0]}
+    local end_time=$(date +%s)
+    local duration=$((end_time - start_time))
+    
+    # Resultado
+    if [ $exit_code -eq 0 ]; then
+        echo -e "${GREEN}✅ $description concluído em ${duration}s${NC}"
+        
+        # Verificar instalação bem-sucedida
+        local success_count=0
+        for pkg in "${to_install[@]}"; do
+            if dpkg -l "$pkg" 2>/dev/null | grep -q "^ii"; then
+                ((success_count++))
+            fi
+        done
+        
+        echo -e "  ${GREEN}${success_count}/${#to_install[@]} pacotes instalados com sucesso${NC}"
+    else
+        echo -e "${RED}❌ Erro na instalação de $description${NC}"
+        echo -e "${YELLOW}Código de erro: $exit_code${NC}"
+    fi
+    
+    echo ""
+    return $exit_code
 }
+
 export_packages() {
     echo "Exporting installed packages for Debian/Ubuntu..."
     dpkg --get-selections > "$HOME/package_list_debian.txt"
